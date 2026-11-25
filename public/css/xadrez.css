@@ -1,0 +1,207 @@
+/* Tela do jogo de xadrez. Usa as variaveis de estilo.css. */
+
+.barra {
+  width: min(100%, 980px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.barra__nome { margin: 0; font-weight: 700; }
+
+.botao-link {
+  display: inline-block;
+  padding: 10px 18px;
+  font-weight: 900;
+  color: var(--tinta);
+  text-decoration: none;
+  background: var(--branco);
+  border: var(--borda);
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--tinta);
+}
+.botao-link:hover { background: var(--ceu); }
+.botao-link:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--tinta); }
+.botao-link:focus-visible { outline: 4px solid var(--uva); outline-offset: 3px; }
+
+.xadrez {
+  width: min(100%, 980px);
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(260px, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .xadrez { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .xadrez__tabuleiro { width: min(100%, 560px); }
+}
+
+.status {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  font-size: 1.15rem;
+  font-weight: 900;
+  text-align: center;
+  background: var(--sol);
+  border: var(--borda);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 var(--tinta);
+}
+.status--xeque { background: var(--coral); color: var(--branco); }
+.status--fim { background: var(--menta); }
+
+/* ---------- Tabuleiro ---------- */
+.tabuleiro {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border: var(--borda);
+  border-radius: 12px;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  container-type: inline-size;
+  background: var(--branco);
+}
+
+.casa {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", "Apple Symbols", system-ui, sans-serif;
+  font-size: min(9.5vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  transition: none;
+}
+@supports (container-type: inline-size) {
+  .casa { font-size: 9.5cqw; }
+}
+.casa--clara { background: #fff4d1; }
+.casa--escura { background: #8fb8ff; }
+.casa:hover { filter: brightness(1.06); background-color: inherit; }
+.casa:active { transform: none; box-shadow: none; }
+.casa:focus-visible { outline: 4px solid var(--uva); outline-offset: -4px; z-index: 2; }
+
+.casa--ultima::before {
+  content: ""; position: absolute; inset: 0; background: rgba(255, 201, 51, .55);
+}
+.casa--selecionada { box-shadow: inset 0 0 0 5px var(--uva); }
+.casa--xeque { background-image: radial-gradient(circle, rgba(255, 107, 94, .95) 0 45%, transparent 75%); }
+
+.casa--destino::after {
+  content: ""; position: absolute; width: 28%; height: 28%; border-radius: 50%;
+  background: rgba(28, 27, 77, .45);
+}
+.casa--captura::after {
+  width: 86%; height: 86%; background: transparent; border: 5px solid rgba(255, 107, 94, .9);
+}
+
+.peca-xadrez { position: relative; z-index: 1; pointer-events: none; }
+.peca-xadrez--w {
+  color: #fff;
+  text-shadow: -1.5px -1.5px 0 var(--tinta), 1.5px -1.5px 0 var(--tinta),
+               -1.5px 1.5px 0 var(--tinta), 1.5px 1.5px 0 var(--tinta), 0 2px 0 var(--tinta);
+}
+.peca-xadrez--b { color: var(--tinta); text-shadow: 0 1px 0 rgba(255, 255, 255, .6); }
+
+.coord {
+  position: absolute; z-index: 1; font-family: var(--fonte); font-size: .7rem; font-weight: 900;
+  color: var(--tinta); opacity: .65; pointer-events: none;
+}
+.coord--linha { top: 3px; left: 4px; }
+.coord--coluna { bottom: 2px; right: 4px; }
+
+.dica { margin: 14px 2px 0; font-size: .9rem; color: var(--texto-suave); }
+
+/* ---------- Painel ---------- */
+.xadrez__painel { width: 100%; padding: 24px 22px 26px; }
+.xadrez__painel h2 { margin-top: 22px; }
+
+select {
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--tinta);
+  background: #f5faff;
+  border: var(--borda);
+  border-radius: 12px;
+}
+select:focus-visible { outline: 4px solid var(--uva); outline-offset: 2px; }
+
+.acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.acoes button { width: auto; margin: 0; flex: 1 1 auto; min-height: 46px; padding: 8px 14px; font-size: 1rem; }
+.acoes button.secundario { flex: 1 1 auto; }
+.acoes button:disabled { opacity: .45; cursor: not-allowed; }
+
+.lista-jogadas {
+  margin: 10px 0 0; padding: 8px 12px 8px 36px; max-height: 220px; overflow-y: auto;
+  font-weight: 700; background: #f5faff; border: 2px solid var(--tinta); border-radius: 12px;
+}
+.lista-jogadas li { padding: 2px 0; }
+.lista-jogadas li span + span { margin-left: 14px; }
+#vazio { margin: 10px 0 0; }
+
+/* ---------- Escolha da promocao ---------- */
+.promocao {
+  position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 16px;
+  background: rgba(28, 27, 77, .6);
+}
+.promocao[hidden] { display: none; }
+.promocao__caixa {
+  width: min(100%, 420px); padding: 22px; background: var(--branco);
+  border: var(--borda); border-radius: 20px; box-shadow: var(--sombra);
+}
+.promocao__caixa h2 { font-size: 1.15rem; }
+.promocao__opcoes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.promocao__opcoes button { margin: 0; }
+
+/* ---------- Cartao de jogo ativo na home ---------- */
+.jogo--ativo {
+  position: relative;
+  background: var(--branco);
+  border: var(--borda);
+  box-shadow: 4px 4px 0 var(--tinta);
+}
+.jogo--ativo .jogo__icone { background: var(--sol); border-color: var(--tinta); }
+.jogo--ativo span { color: var(--texto-suave); }
+.jogo__link {
+  margin-top: auto; font-weight: 900; color: var(--tinta); text-decoration: none;
+}
+.jogo__link::after { content: ""; position: absolute; inset: 0; border-radius: 16px; }
+.jogo--ativo:hover { background: #fff8dc; }
+.jogo--ativo:focus-within { outline: 4px solid var(--uva); outline-offset: 3px; }
+.jogo__link:focus-visible { outline: none; text-decoration: underline; }
+
+/* ---------- Modo online ---------- */
+[hidden] { display: none !important; }
+
+.online { margin-top: 4px; }
+.online button { margin-top: 14px; }
+.sala__codigo { margin: 18px 0 0; font-weight: 700; }
+.sala__codigo strong {
+  display: inline-block; margin-left: 6px; padding: 2px 14px;
+  font-size: 1.7rem; letter-spacing: .2em; background: var(--sol);
+  border: var(--borda); border-radius: 12px; box-shadow: 3px 3px 0 var(--tinta);
+}
+#placar { margin: 12px 0 0; font-weight: 700; color: var(--tinta); }
+.convite input { font-size: .9rem; min-height: 44px; }
+.aviso-online { min-height: 1.5em; margin: 14px 0 0; font-weight: 700; color: var(--texto-suave); }
+.aviso-online:empty { min-height: 0; margin: 0; }
+#codigo { text-transform: uppercase; letter-spacing: .25em; font-weight: 900; text-align: center; }
+.online button, .online button.secundario { width: 100%; }
+.online .acoes button { width: auto; margin: 0; }

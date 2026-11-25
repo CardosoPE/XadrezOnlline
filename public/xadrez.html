@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xadrez - Jogos Educativos</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/xadrez.css">
+</head>
+<body>
+  <div class="pagina pagina--topo">
+    <header class="barra">
+      <a class="botao-link" href="home.html">Voltar aos jogos</a>
+      <p class="barra__nome">Jogando como <strong>Ana Souza</strong></p>  <!-- BACK-END: nome do usuário -->
+    </header>
+
+    <main class="xadrez">
+      <section class="xadrez__tabuleiro" aria-label="Tabuleiro de xadrez">
+        <p id="mensagem" class="status" role="status" aria-live="polite">Carregando o tabuleiro...</p>
+        <div id="tabuleiro" class="tabuleiro" role="grid" aria-label="Tabuleiro"></div>
+        <p class="dica">Toque numa peça para ver onde ela pode ir. Use as setas do teclado para andar pelo tabuleiro e Enter para escolher.</p>
+      </section>
+
+      <aside class="xadrez__painel cartao">
+        <h1>Xadrez</h1>
+
+        <form id="opcoes" class="opcoes" onsubmit="return false">
+          <label for="modo">Quem joga contra você?</label>
+          <select id="modo">
+            <option value="dois">No mesmo computador</option>
+            <option value="pc" selected>O computador</option>
+            <option value="online">Online (outro computador)</option>
+          </select>
+
+          <div id="opcoes-pc">
+            <label for="nivel">Nível do computador</label>
+            <select id="nivel">
+              <option value="facil">Fácil</option>
+              <option value="medio" selected>Médio</option>
+              <option value="dificil">Difícil</option>
+            </select>
+
+            <label for="cor">Sua cor</label>
+            <select id="cor">
+              <option value="w" selected>Brancas (você começa)</option>
+              <option value="b">Pretas</option>
+            </select>
+          </div>
+
+          <div id="painel-online" class="online" hidden>
+            <label for="nome">Seu nome</label>
+            <input id="nome" type="text" maxlength="20" autocomplete="nickname" spellcheck="false">
+
+            <div id="lobby">
+              <label for="cor-sala">Sua cor</label>
+              <select id="cor-sala">
+                <option value="x" selected>Sorteio</option>
+                <option value="w">Brancas</option>
+                <option value="b">Pretas</option>
+              </select>
+              <button type="button" id="criar">Criar sala</button>
+
+              <label for="codigo">Ou entre com o código do colega</label>
+              <input id="codigo" type="text" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCD">
+              <button type="button" id="entrar" class="secundario">Entrar na sala</button>
+            </div>
+
+            <div id="sala" hidden>
+              <p class="sala__codigo">Sala <strong id="codigo-sala">----</strong></p>
+              <p id="placar" class="sub"></p>
+              <div id="convite" class="convite">
+                <label for="link">Mande este link para o colega</label>
+                <input id="link" type="text" readonly>
+                <button type="button" id="copiar" class="secundario">Copiar link</button>
+              </div>
+              <div class="acoes">
+                <button type="button" id="revanche" hidden>Revanche</button>
+                <button type="button" id="desistir" class="secundario" hidden>Desistir</button>
+                <button type="button" id="sair" class="secundario">Sair da sala</button>
+              </div>
+            </div>
+
+            <p id="aviso" class="aviso-online" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <div class="acoes">
+          <button type="button" id="novo">Novo jogo</button>
+          <button type="button" id="desfazer" class="secundario">Desfazer jogada</button>
+          <button type="button" id="virar" class="secundario">Virar tabuleiro</button>
+        </div>
+
+        <h2>Jogadas</h2>
+        <ol id="lista" class="lista-jogadas" aria-label="Jogadas feitas"></ol>
+        <p id="vazio" class="sub">Nenhuma jogada ainda.</p>
+      </aside>
+    </main>
+  </div>
+
+  <div id="promocao" class="promocao" role="dialog" aria-modal="true" aria-labelledby="promocao-titulo" hidden>
+    <div class="promocao__caixa">
+      <h2 id="promocao-titulo">Seu peão chegou ao fim! Escolha a nova peça:</h2>
+      <div class="promocao__opcoes">
+        <button type="button" data-peca="Q">Rainha</button>
+        <button type="button" data-peca="R">Torre</button>
+        <button type="button" data-peca="B">Bispo</button>
+        <button type="button" data-peca="N">Cavalo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/xadrez-motor.js"></script>
+  <script src="js/xadrez.js"></script>
+</body>
+</html>

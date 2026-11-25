@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar - Jogos Educativos</title>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <div class="pagina">
+    <header class="marca">
+      <ul class="pecas" aria-hidden="true">
+        <li class="peca">J</li><li class="peca">O</li><li class="peca">G</li><li class="peca">O</li><li class="peca">S</li>
+        <li class="peca peca--vazia"></li>
+        <li class="peca">E</li><li class="peca">D</li><li class="peca">U</li><li class="peca">C</li><li class="peca">A</li><li class="peca">T</li><li class="peca">I</li><li class="peca">V</li><li class="peca">O</li><li class="peca">S</li>
+      </ul>
+      <p class="marca__linha">A plataforma de jogos da sua escola</p>
+    </header>
+
+    <main class="cartao">
+      <h1>Vamos jogar?</h1>
+      <p class="sub">Entre com a matrícula e a senha que a escola deu para você.</p>
+
+      <!-- BACK-END: mostrar este bloco só quando o login falhar.
+           Texto: "Matrícula ou senha incorretas. Tente novamente."
+           (para ver como fica, tire o atributo "hidden") -->
+      <p class="erro" role="alert" hidden>
+        <span class="erro__icone" aria-hidden="true">!</span>
+        <span>Matrícula ou senha incorretas. Tente novamente.</span>
+      </p>
+
+      <!-- BACK-END: ajuste o action (ex.: /login) -->
+      <form action="home.html" method="get">
+        <label for="matricula">Matrícula</label>
+        <input id="matricula" name="matricula" type="text" inputmode="text"
+               autocomplete="username" autocapitalize="characters" spellcheck="false" autofocus required>
+
+        <label for="senha">Senha ou PIN</label>
+        <div class="campo">
+          <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+          <button type="button" class="ver" id="ver-senha" aria-controls="senha" aria-pressed="false" hidden>Mostrar</button>
+        </div>
+
+        <button type="submit">Entrar</button>
+      </form>
+
+      <p class="aviso">Esqueceu a senha? Fale com o seu professor.</p>
+    </main>
+  </div>
+  <script src="js/login.js"></script>
+</body>
+</html>

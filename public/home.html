@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Início - Jogos Educativos</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/xadrez.css">
+</head>
+<body>
+  <div class="pagina pagina--topo">
+    <main class="cartao cartao--larga">
+      <header class="topo">
+        <!-- BACK-END: inicial do nome. Para professor, adicione a classe "avatar--professor" -->
+        <div class="avatar" aria-hidden="true">A</div>
+
+        <div class="topo__texto">
+          <!-- BACK-END: nome do usuário -->
+          <h1>Olá, Ana Souza!</h1>
+          <ul class="etiquetas" aria-label="Seus dados">
+            <!-- BACK-END: turma e faixa etária (omitir se vazios, como no professor) -->
+            <li class="etiqueta etiqueta--turma"><span class="sr-only">Turma: </span>3º Ano</li>
+            <li class="etiqueta etiqueta--faixa">8 a 9 anos</li>
+            <li class="etiqueta etiqueta--matricula">Matrícula 2024001</li>
+            <!-- Só para professor: <li class="etiqueta etiqueta--matricula">Professor(a)</li> -->
+          </ul>
+        </div>
+
+        <!-- BACK-END: ajuste o action (ex.: /logout) -->
+        <form action="login.html" method="get">
+          <button type="submit" class="secundario">Sair</button>
+        </form>
+      </header>
+
+      <section class="secao" aria-labelledby="titulo-jogos">
+        <h2 id="titulo-jogos">Seus jogos</h2>
+        <p class="sub">Os jogos da sua turma vão aparecer aqui.</p>
+
+        <!-- Espaço do catálogo (HU03). Repita o <li> para cada jogo. -->
+        <ul class="jogos">
+          <li class="jogo jogo--ativo">
+            <span class="jogo__icone" aria-hidden="true">♞</span>
+            <strong>Xadrez</strong>
+            <span>Jogue com um colega ou contra o computador</span>
+            <a class="jogo__link" href="xadrez.html">Jogar agora</a>
+          </li>
+          <li class="jogo"><span class="jogo__icone" aria-hidden="true">🔢</span><strong>Em breve</strong><span>Um jogo novo para a sua turma</span></li>
+          <li class="jogo"><span class="jogo__icone" aria-hidden="true">🔤</span><strong>Em breve</strong><span>Um jogo novo para a sua turma</span></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
